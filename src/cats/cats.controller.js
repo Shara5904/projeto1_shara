@@ -54,9 +54,12 @@ export class CatsController {
     }
 
     @Post()
-    @Bind(Body())
-    create(cat){
-        return `cadastrando um gato ${JSON.stringify(cat)}`
+    @Bind(Body(), Res())
+    create(cat, res){
+        GATO.push(cat);
+        res.status(HttpStatus.CREATED).json(cat);
+
+
     }
 
 
