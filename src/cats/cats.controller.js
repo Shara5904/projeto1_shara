@@ -21,7 +21,7 @@ const GATO= [
 }
 
 ];
-@Controller('cats')
+@Controller('cat')
 export class CatsController {
 
     @Get()
