@@ -42,8 +42,15 @@ export class CatsController {
     }
 
     @Delete(':id')
-    @Bind(Param('id'))
-    remove(id){
+    @Bind(Param('id'), Res())
+    remove(id, res){
+        const indexgatoEncontrados = GATO.findIndex(gato => gato.id ==id);
+        if(indexgatoEncontrados >= 0){
+            GATO.splice(indexgatoEncontrados, 1);
+            res.status(HttpStatus.NO_CONTENT).send();
+        }else{
+            res.status(HttpStatus.NOT_FOUND).send();
+        }
         return `removendo gato com id = ${id}.`;
     }
-}
+};
