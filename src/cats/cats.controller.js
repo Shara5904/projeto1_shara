@@ -1,4 +1,5 @@
-import { Bind, Controller, Get, HttpStatus, Param, Res, Delete, Post, Body, Put} from '@nestjs/common';
+import { Bind, Controller, Get, HttpStatus, Param, Res, Delete, Post, Body, Put, Dependencies} from '@nestjs/common';
+import{CatsService} from './cats.service'
 
 const GATO= [ 
 {
@@ -22,11 +23,17 @@ const GATO= [
 
 ];
 @Controller('cats')
+@Dependencies(CatsService)
 export class CatsController {
+    
+    constructor(catsService){
+        this.catsService = catsService;
+    }
 
     @Get()
     findALL() {
-        return GATO;
+        return this.catsService.findAll();
+        
     }
     
     @Get(':id')
