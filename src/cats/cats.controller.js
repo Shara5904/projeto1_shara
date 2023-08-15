@@ -1,4 +1,4 @@
-import { Bind, Controller, Get, HttpStatus, Param, Res, Delete, Post, Body} from '@nestjs/common';
+import { Bind, Controller, Get, HttpStatus, Param, Res, Delete, Post, Body, Put} from '@nestjs/common';
 
 const GATO= [ 
 {
@@ -62,5 +62,16 @@ export class CatsController {
 
     }
 
+    @Put(':id')
+    @Bind(Param('id'), Body(), Res())
+    update(id, cat, res){
+        const indexgatoEncontrados = GATO.findIndex(gato => gato.id ==id);
+        if(indexgatoEncontrados >= 0){
+            GATO.splice(indexgatoEncontrados, 1, cat);
+            res.status(HttpStatus.NO_CONTENT).send();
+        }else{
+            res.status(HttpStatus.NOT_FOUND).send();
+        }
+    }
 
 }
