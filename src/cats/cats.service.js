@@ -15,4 +15,8 @@ export class CatsService {
     create(cat){
         this.cats.push(cat);
     }
+
+    findById(id){
+        return this.cats.find(cat => cat.id == id)
+    }
 }
