@@ -63,7 +63,8 @@ export class CatsController {
     @Post()
     @Bind(Body(), Res())
     create(cat, res){
-        GATO.push(cat);
+        this.catsService.create(cat);
+        // GATO.push(cat);
         res.status(HttpStatus.CREATED).json(cat);
 
 

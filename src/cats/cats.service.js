@@ -9,6 +9,10 @@ export class CatsService {
 
     
     findAll(){
-        return GATO;
-    }   
+        return this.cats;
+    } 
+    
+    create(cat){
+        this.cats.push(cat);
+    }
 }
