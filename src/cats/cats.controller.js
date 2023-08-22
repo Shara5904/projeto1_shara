@@ -1,27 +1,7 @@
 import { Bind, Controller, Get, HttpStatus, Param, Res, Delete, Post, Body, Put, Dependencies} from '@nestjs/common';
 import{CatsService} from './cats.service'
 
-const GATO= [ 
-{
-    id:1,
-    name:'franeudos',
-    corDosOlhos:'preto',
-    raca:'sphynx'
-},
-{
-    id:2,
-    name:'curovo',
-    corDosOlhos:'cinza',
-    raca:'siamês'
-},
-{
-    id:3,
-    name:'franjinha',
-    corDosOlhos:'cinza',
-    raca:'siamês'
-}
 
-];
 @Controller('cats')
 @Dependencies(CatsService)
 export class CatsController {
@@ -74,9 +54,9 @@ export class CatsController {
     @Put(':id')
     @Bind(Param('id'), Body(), Res())
     update(id, cat, res){
-        const indexgatoEncontrados = GATO.findIndex(gato => gato.id ==id);
+        const indexgatoEncontrados = this.catsService.findIndexById(id);
         if(indexgatoEncontrados >= 0){
-            GATO.splice(indexgatoEncontrados, 1, cat);
+            this.catsService.update(indexgatoEncontrados, cat);
             res.status(HttpStatus.NO_CONTENT).send();
         }else{
             res.status(HttpStatus.NOT_FOUND).send();
