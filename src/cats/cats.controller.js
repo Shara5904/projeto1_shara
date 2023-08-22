@@ -17,7 +17,7 @@ export class CatsController {
     }
     
     @Get(':id')
-    @Bind(Param('id'), Res())
+    @Bind(Param('id', new ParseIntPipe()), Res())
     findOne(id, res) {
         const gatoEncontrado = this.catsService.findById(id);
         if (gatoEncontrado){
@@ -29,7 +29,7 @@ export class CatsController {
     }
 
     @Delete(':id')
-    @Bind(Param('id'), Res())
+    @Bind(Param('id', new ParseIntPipe()), Res())
     remove(id, res){
         const indexGatoEncontrado = this.catsService.findIndexById(id);
         if(indexGatoEncontrado >= 0){
@@ -52,7 +52,7 @@ export class CatsController {
     }
 
     @Put(':id')
-    @Bind(Param('id'), Body(), Res())
+    @Bind(Param('id', new ParseIntPipe()), Body(), Res())
     update(id, cat, res){
         const indexgatoEncontrados = this.catsService.findIndexById(id);
         if(indexgatoEncontrados >= 0){
