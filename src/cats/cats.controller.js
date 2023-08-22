@@ -1,4 +1,4 @@
-import { Bind, Controller, Get, HttpStatus, Param, Res, Delete, Post, Body, Put, Dependencies} from '@nestjs/common';
+import { Bind, Controller, Get, HttpStatus, Param, Res, Delete, Post, Body, ParseIntPipe, Put, Dependencies} from '@nestjs/common';
 import{CatsService} from './cats.service'
 
 
@@ -17,9 +17,9 @@ export class CatsController {
     }
     
     @Get(':id')
-    @Bind(Param(), Res())
-    findOne(params, res) {
-        const gatoEncontrado = this.catsService.findById(params.id);
+    @Bind(Param('id'), Res())
+    findOne(id, res) {
+        const gatoEncontrado = this.catsService.findById(id);
         if (gatoEncontrado){
             res.status(HttpStatus.OK).json(gatoEncontrado);
         } else{
